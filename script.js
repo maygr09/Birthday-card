@@ -1,41 +1,61 @@
-// Tarjeta de regalo interactiva — lógica muy simple, sin dependencias.
+// Tarjeta de regalo interactiva — lógica simple, sin dependencias.
 
 document.addEventListener("DOMContentLoaded", () => {
-  const introCard = document.getElementById("intro-card");
+  const cardClosed = document.getElementById("card-closed");
+  const cover = document.getElementById("cover");
+
+  const cardOpen = document.getElementById("card-open");
+  const spread = document.getElementById("spread");
+  const btnAbrirRegalo = document.getElementById("btn-abrir-regalo");
+
   const giftScene = document.getElementById("gift-scene");
-  const btnVerRegalo = document.getElementById("btn-ver-regalo");
-  const btnAgain = document.getElementById("btn-again");
   const envelopeFlap = document.getElementById("envelope-flap");
   const waxSeal = document.getElementById("wax-seal");
   const tickets = document.getElementById("tickets");
-  const hint = document.getElementById("hint");
+  const btnAgain = document.getElementById("btn-again");
 
-  // Paso 1: mostrar el sobre al presionar "Ver tu regalo"
-  btnVerRegalo.addEventListener("click", () => {
-    introCard.hidden = true;
+  // Paso 1: tocar la tarjeta cerrada → se "voltea" la portada y aparece
+  // la tarjeta abierta (las dos medias hojas)
+  cover.addEventListener("click", () => {
+    cover.classList.add("flip");
+    setTimeout(() => {
+      cardClosed.hidden = true;
+      cardOpen.hidden = false;
+      requestAnimationFrame(() => spread.classList.add("show"));
+    }, 500);
+  });
+
+  // Paso 2: botón "Abrir regalo" → aparece el sobre
+  btnAbrirRegalo.addEventListener("click", () => {
+    cardOpen.hidden = true;
     giftScene.hidden = false;
   });
 
-  // Paso 2: al tocar el sello, el sobre se abre y salen los boletos
+  // Paso 3: tocar el sello → el sobre se abre y salen los boletos
   waxSeal.addEventListener("click", () => {
     waxSeal.disabled = true;
     envelopeFlap.classList.add("open");
-    hint.textContent = "¡Disfruta tu regalo! 🎶";
+    giftScene.classList.add("opened");
 
-    // pequeño retraso para que la solapa empiece a abrirse antes
-    // de que los boletos comiencen a salir
     setTimeout(() => {
       tickets.classList.add("out");
       btnAgain.hidden = false;
     }, 250);
   });
 
-  // Botón opcional para reiniciar la animación
+  // Botón para reiniciar toda la experiencia desde la tarjeta cerrada
   btnAgain.addEventListener("click", () => {
     tickets.classList.remove("out");
     envelopeFlap.classList.remove("open");
     waxSeal.disabled = false;
     btnAgain.hidden = true;
-    hint.textContent = "Toca el sello para abrir el sobre";
+    giftScene.classList.remove("opened");
+
+    spread.classList.remove("show");
+    cover.classList.remove("flip");
+
+    giftScene.hidden = true;
+    cardOpen.hidden = true;
+    cardClosed.hidden = false;
   });
 });

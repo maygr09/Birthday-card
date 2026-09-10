@@ -11,9 +11,7 @@
 
 [hidden] { display: none !important; }
 
-html, body {
-  height: 100%;
-}
+html, body { height: 100%; }
 
 body {
   margin: 0;
@@ -29,94 +27,195 @@ body {
 
 .wrap {
   width: 100%;
-  max-width: 480px;
+  max-width: 760px;
+  display: flex;
+  justify-content: center;
 }
 
-/* ---------- Tarjeta ---------- */
+button { font-family: inherit; }
 
-.card {
-  background: var(--crema);
-  border-radius: 24px;
-  padding: 40px 28px 32px;
-  text-align: center;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+/* ============================================================
+   1) TARJETA CERRADA — hoja carta doblada (media carta vertical)
+   ============================================================ */
+
+.card-closed {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  perspective: 1400px;
+}
+
+.cover {
+  width: min(340px, 78vw);
+  aspect-ratio: 5.5 / 8.5;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px 14px 14px 6px;
+  background: linear-gradient(160deg, var(--crema), var(--crema-osc));
+  box-shadow:
+    -6px 0 0 rgba(0, 0, 0, 0.08) inset,
+    0 20px 50px rgba(0, 0, 0, 0.35);
+  padding: 40px 26px 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  color: var(--texto);
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4, 0.1, 0.2, 1), opacity 0.55s ease;
 }
 
-.confetti {
-  font-size: 28px;
+.cover:hover { filter: brightness(1.02); }
+
+.cover.flip {
+  transform: rotateY(-125deg);
+  opacity: 0;
+}
+
+.cover-deco {
+  font-size: 26px;
   letter-spacing: 6px;
-  margin-bottom: 4px;
 }
 
-.card h1 {
-  margin: 0;
-  font-size: clamp(24px, 6vw, 32px);
+.cover h1 {
+  margin: 4px 0 0;
+  font-size: clamp(22px, 5.6vw, 28px);
+  line-height: 1.35;
 }
 
-.card .msg {
-  margin: 0 0 16px;
-  color: #5b4d70;
-  line-height: 1.5;
+.cover .nombre {
+  color: #b8442f;
+  background: linear-gradient(180deg, transparent 55%, rgba(255, 179, 71, 0.55) 55%);
+  padding: 0 2px;
 }
 
-.btn-ver-regalo,
-.btn-again {
+.tap-hint {
+  margin: 18px 0 0;
+  font-size: 14px;
+  color: #8a7aa0;
+}
+
+/* ============================================================
+   2) TARJETA ABIERTA — las dos medias hojas internas
+   ============================================================ */
+
+.card-open {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.spread {
+  position: relative;
+  width: min(680px, 92vw);
+  aspect-ratio: 11 / 8.5;
+  background: linear-gradient(160deg, var(--crema), var(--crema-osc));
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  display: flex;
+  opacity: 0;
+  transform: scale(0.94) translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.spread.show {
+  opacity: 1;
+  transform: none;
+}
+
+.spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 24px;
+  margin-left: -12px;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.16), transparent);
+  pointer-events: none;
+}
+
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 22px 20px 24px;
+}
+
+.placeholder-box {
+  flex: 1;
+  border: 2px dashed rgba(44, 30, 74, 0.35);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgba(44, 30, 74, 0.55);
+  font-size: clamp(12px, 2.6vw, 14px);
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.page-right {
+  align-items: center;
+}
+
+.page-right .placeholder-box {
+  width: 100%;
+}
+
+.btn-abrir-regalo {
   border: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: clamp(14px, 3.4vw, 17px);
   font-weight: 600;
   color: var(--morado-osc);
   background: var(--dorado);
-  padding: 14px 28px;
+  padding: 12px 22px;
   border-radius: 999px;
   box-shadow: 0 8px 20px rgba(255, 179, 71, 0.45);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.btn-ver-regalo:hover,
-.btn-again:hover {
+.btn-abrir-regalo:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 24px rgba(255, 179, 71, 0.55);
 }
 
-.btn-ver-regalo:active,
-.btn-again:active {
-  transform: translateY(0);
-}
+.btn-abrir-regalo:active { transform: translateY(0); }
 
-.btn-again {
-  margin-top: 28px;
-  background: transparent;
-  color: var(--crema);
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  box-shadow: none;
-}
-
-/* ---------- Escena del sobre ---------- */
+/* ============================================================
+   3) ESCENA DEL SOBRE
+   ============================================================ */
 
 .gift-scene {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
 }
 
 .hint {
   color: var(--crema);
   opacity: 0.85;
-  margin-bottom: 48px;
+  margin: 0 0 48px;
   font-size: 15px;
   position: relative;
   z-index: 5;
+  transition: opacity 0.35s ease;
+}
+
+.gift-scene.opened .hint {
+  opacity: 0;
 }
 
 .envelope {
   position: relative;
-  width: min(320px, 82vw);
+  width: min(640px, 92vw);
   aspect-ratio: 320 / 210;
   perspective: 1000px;
 }
@@ -130,30 +229,42 @@ body {
 
 .ticket {
   position: absolute;
+  bottom: 8%;
   left: 50%;
-  bottom: 10%;
-  width: 78%;
+  width: 30%;
   border-radius: 10px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
   opacity: 0;
-  transform: translate(-50%, 10px) rotate(0deg) scale(0.9);
-  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
+  transform: translate(-50%, 14px) rotate(0deg) scale(0.9);
+  transition: left 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+              opacity 0.5s ease;
 }
 
-.ticket-1 { transform: translate(-70%, 10px) rotate(0deg) scale(0.9); }
-.ticket-2 { transform: translate(-30%, 10px) rotate(0deg) scale(0.9); z-index: 1; }
+.ticket-1 { z-index: 1; }
+.ticket-2 { z-index: 2; }
+.ticket-3 { z-index: 1; }
 
 .tickets.out .ticket-1 {
+  left: 32%;
   opacity: 1;
-  transform: translate(-88%, -128%) rotate(-10deg) scale(1);
+  transform: translate(-50%, -122%) rotate(-13deg) scale(1);
   transition-delay: 0.15s;
 }
 
 .tickets.out .ticket-2 {
+  left: 50%;
   opacity: 1;
-  transform: translate(-12%, -145%) rotate(7deg) scale(1);
-  transition-delay: 0.3s;
-  z-index: 2;
+  transform: translate(-50%, -146%) rotate(2deg) scale(1);
+  transition-delay: 0.32s;
+  z-index: 3;
+}
+
+.tickets.out .ticket-3 {
+  left: 68%;
+  opacity: 1;
+  transform: translate(-50%, -122%) rotate(13deg) scale(1);
+  transition-delay: 0.48s;
 }
 
 /* cuerpo base del sobre (siempre visible detrás) */
@@ -205,22 +316,24 @@ body {
   z-index: -1;
 }
 
+/* sello: fuera de la solapa (así no se recorta) y justo en la punta */
 .wax-seal {
   position: absolute;
-  top: 40%;
+  top: 58%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 22%;
+  width: 15%;
   aspect-ratio: 1;
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  z-index: 5;
   background: radial-gradient(circle at 35% 30%, #ff8a6b, #c0392b 70%);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(16px, 4vw, 22px);
+  font-size: clamp(16px, 3vw, 22px);
   transition: transform 0.15s ease, opacity 0.3s ease;
 }
 
@@ -233,9 +346,26 @@ body {
   pointer-events: none;
 }
 
+.btn-again {
+  margin-top: 32px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  color: var(--crema);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 999px;
+  transition: transform 0.15s ease;
+}
+
+.btn-again:hover { transform: translateY(-2px); }
+
 @media (prefers-reduced-motion: reduce) {
   .ticket,
-  .envelope-flap {
+  .envelope-flap,
+  .cover,
+  .spread {
     transition: none !important;
   }
 }

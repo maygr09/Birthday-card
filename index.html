@@ -10,23 +10,44 @@
   <main class="wrap">
 
     <!-- ============================================================
-         TARJETA (pantalla 1)
-         Personaliza aquí el título y el mensaje.
+         1) TARJETA CERRADA (una hoja carta doblada, media carta vertical)
+         ✏️ Cambia el nombre dentro de <span class="nombre">
          ============================================================ -->
-    <section class="card" id="intro-card">
-      <div class="confetti" aria-hidden="true">🎉 🎈 ✨ 🎊</div>
-      <h1>¡Tienes un regalo!</h1>
-      <p class="msg">
-        <!-- ✏️ Escribe aquí tu mensaje personalizado -->
-        Escribe aquí tu mensaje para quien recibe el regalo.
-      </p>
-      <button class="btn-ver-regalo" id="btn-ver-regalo" type="button">
-        Ver tu regalo 🎁
+    <section class="card-closed" id="card-closed">
+      <button class="cover" id="cover" type="button" aria-label="Abrir tarjeta">
+        <div class="cover-deco" aria-hidden="true">🎈 🎉 ✨</div>
+        <h1>Feliz cumpleaños,<br><span class="nombre">[Nombre]</span></h1>
+        <p class="tap-hint">Toca para abrir</p>
       </button>
     </section>
 
     <!-- ============================================================
-         SOBRE (pantalla 2)
+         2) TARJETA ABIERTA (las dos medias hojas / páginas internas)
+         ✏️ Reemplaza los recuadros con tu foto o mensaje
+         ============================================================ -->
+    <section class="card-open" id="card-open" hidden>
+      <div class="spread" id="spread">
+        <div class="spine" aria-hidden="true"></div>
+
+        <div class="page page-left">
+          <div class="placeholder-box">
+            <span>✏️ Coloca aquí tu foto o mensaje</span>
+          </div>
+        </div>
+
+        <div class="page page-right">
+          <div class="placeholder-box">
+            <span>✏️ Coloca aquí tu foto o mensaje</span>
+          </div>
+          <button class="btn-abrir-regalo" id="btn-abrir-regalo" type="button">
+            Abrir regalo 🎁
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3) SOBRE con los boletos
          ============================================================ -->
     <section class="gift-scene" id="gift-scene" hidden>
       <p class="hint" id="hint">Toca el sello para abrir el sobre</p>
@@ -36,16 +57,16 @@
           <!-- 🖼️ Reemplaza estas imágenes por las fotos reales de tus boletos -->
           <img src="assets/boleto-1.jpg" alt="Boleto 1" class="ticket ticket-1">
           <img src="assets/boleto-2.jpg" alt="Boleto 2" class="ticket ticket-2">
+          <img src="assets/boleto-3.jpg" alt="Boleto 3" class="ticket ticket-3">
         </div>
 
         <div class="envelope-body"></div>
         <div class="envelope-pocket"></div>
 
-        <div class="envelope-flap" id="envelope-flap">
-          <button class="wax-seal" id="wax-seal" type="button" aria-label="Abrir el sobre">
-            <span>💌</span>
-          </button>
-        </div>
+        <div class="envelope-flap" id="envelope-flap"></div>
+        <button class="wax-seal" id="wax-seal" type="button" aria-label="Abrir el sobre">
+          <span>💌</span>
+        </button>
       </div>
 
       <button class="btn-again" id="btn-again" type="button" hidden>Ver de nuevo</button>

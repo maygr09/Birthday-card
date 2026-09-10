@@ -1,75 +1,66 @@
-# 🎁 Tarjeta de regalo — boletos de concierto
+# 🎁 Tarjeta de cumpleaños — boletos de concierto
 
-Página sencilla en HTML/CSS/JS (sin dependencias) para GitHub Pages:
+Página en HTML/CSS/JS (sin dependencias) para GitHub Pages, con 3 pasos:
 
-1. Se ve una tarjeta con el botón **"Ver tu regalo"**.
-2. Al presionarlo aparece un sobre.
-3. Al tocar el sello del sobre, se abre y salen los boletos (con foto).
+1. **Tarjeta cerrada** (una hoja carta doblada, tipo media carta vertical) con
+   "Feliz cumpleaños, [Nombre]" en la portada. Se toca para abrir.
+2. **Tarjeta abierta**: las dos medias hojas internas, cada una con un
+   placeholder para tu foto o mensaje, y el botón **"Abrir regalo"** abajo
+   en la hoja derecha.
+3. **Sobre**: al tocar el sello se abre y salen 3 boletos (verticales).
 
 ## Archivos
 
 ```
-index.html   → estructura de la página
-style.css    → estilos y animaciones (tarjeta, sobre, boletos)
-script.js    → la lógica de los 3 clics (ver regalo → tocar sello → boletos salen)
+index.html   → estructura de la página (3 secciones/pantallas)
+style.css    → estilos y animaciones
+script.js    → lógica de los clics entre pantallas
 assets/
-  boleto-1.jpg  → boleto de ejemplo (PLACEHOLDER)
-  boleto-2.jpg  → boleto de ejemplo (PLACEHOLDER)
+  boleto-1.jpg / boleto-2.jpg / boleto-3.jpg  → boletos de ejemplo (PLACEHOLDER)
 ```
 
-Los dos boletos que están ahora son **marcadores de posición** ("TU FOTO
-AQUÍ"), para que sepas exactamente dónde va cada foto.
+## 1. Cambiar el nombre de la portada
 
-## 1. Poner tus fotos reales de los boletos
-
-La forma más rápida: reemplaza los archivos `assets/boleto-1.jpg` y
-`assets/boleto-2.jpg` por tus fotos reales, **con el mismo nombre**. No
-necesitas tocar nada más.
-
-Si prefieres usar otros nombres de archivo, o quieres formato `.png`,
-edita en `index.html` estas dos líneas (busca `<div class="tickets">`):
+En `index.html`, busca:
 
 ```html
-<img src="assets/boleto-1.jpg" alt="Boleto 1" class="ticket ticket-1">
-<img src="assets/boleto-2.jpg" alt="Boleto 2" class="ticket ticket-2">
+<h1>Feliz cumpleaños,<br><span class="nombre">[Nombre]</span></h1>
 ```
 
-y cambia el `src` por el nombre de tu archivo.
+y reemplaza `[Nombre]`.
 
-### ¿Tienes más de 2 boletos?
+## 2. Las dos páginas internas (placeholders)
 
-Agrega otra línea siguiendo el mismo patrón, por ejemplo:
+En `index.html`, dentro de `<section class="card-open">`, cada
+`.placeholder-box` es donde va tu foto o mensaje. Por ejemplo, para poner
+una foto en la página izquierda:
 
 ```html
-<img src="assets/boleto-3.jpg" alt="Boleto 3" class="ticket ticket-3">
+<div class="page page-left">
+  <img src="assets/tu-foto.jpg" alt="Foto" style="width:100%;border-radius:10px;">
+</div>
 ```
 
-y en `style.css` agrega un bloque parecido a `.ticket-2` / `.tickets.out
-.ticket-2` (copia y ajusta un poco la rotación/posición para que no queden
-exactamente encima del otro).
+O simplemente reemplaza el texto del `<span>` si prefieres un mensaje.
 
-## 2. Editar el mensaje de la tarjeta
+## 3. Poner tus fotos reales de los boletos
 
-En `index.html`, dentro de `<section class="card" id="intro-card">`,
-cambia el título y el texto:
+Reemplaza `assets/boleto-1.jpg`, `boleto-2.jpg` y `boleto-3.jpg` por tus
+fotos reales, **con el mismo nombre**. Son verticales — si tus fotos son
+horizontales, recórtalas primero para que se vean bien dentro del sobre.
 
-```html
-<h1>¡Tienes un regalo!</h1>
-<p class="msg">
-  Escribe aquí tu mensaje para quien recibe el regalo.
-</p>
-```
+¿Son más o menos de 3 boletos? En `index.html`, dentro de
+`<div class="tickets">`, agrega o quita una línea `<img>` (sigue el patrón
+`ticket-1`, `ticket-2`, `ticket-3`...). En `style.css`, agrega/quita el
+bloque correspondiente `.tickets.out .ticket-N { left: ...%; transform: ...; }`
+(ajusta el `left` de cada uno para que se abran en abanico sin quedar
+exactamente encima).
 
-## 3. Publicarlo en GitHub Pages
+## 4. Publicar los cambios en GitHub Pages
 
-1. Crea un repositorio nuevo en GitHub (público, para que Pages sea
-   gratis) — por ejemplo `regalo-conciertos`.
-2. Sube todos estos archivos a la raíz del repositorio (index.html,
-   style.css, script.js y la carpeta assets/).
-3. En el repositorio, ve a **Settings → Pages**.
-4. En "Build and deployment", elige **Deploy from a branch**, rama
-   `main` y carpeta `/ (root)`. Guarda.
-5. Espera 1-2 minutos. Tu página quedará en:
-   `https://<tu-usuario>.github.io/<nombre-del-repositorio>/`
+Como ya tienes el repositorio conectado, solo necesitas:
 
-Y listo, ya puedes compartir el link. 🎉
+1. Reemplazar/actualizar estos archivos en tu carpeta del proyecto.
+2. Hacer commit y push a la rama `main` (o la que tengas configurada en
+   Settings → Pages).
+3. Esperar 1-2 minutos y refrescar tu link de GitHub Pages.
