@@ -18,8 +18,10 @@ body {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  align-items: safe center;
   justify-content: center;
   padding: 24px 16px;
+  overflow-y: auto;
   font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
   background: radial-gradient(circle at 50% 0%, var(--morado-med), var(--morado-osc));
   color: var(--texto);
@@ -215,7 +217,7 @@ button { font-family: inherit; }
 
 .envelope {
   position: relative;
-  width: min(640px, 92vw);
+  width: min(360px, 70vw);
   aspect-ratio: 320 / 210;
   perspective: 1000px;
 }
