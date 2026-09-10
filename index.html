@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tienes un regalo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- ============================================================
+         TARJETA (pantalla 1)
+         Personaliza aquí el título y el mensaje.
+         ============================================================ -->
+    <section class="card" id="intro-card">
+      <div class="confetti" aria-hidden="true">🎉 🎈 ✨ 🎊</div>
+      <h1>¡Tienes un regalo!</h1>
+      <p class="msg">
+        <!-- ✏️ Escribe aquí tu mensaje personalizado -->
+        Escribe aquí tu mensaje para quien recibe el regalo.
+      </p>
+      <button class="btn-ver-regalo" id="btn-ver-regalo" type="button">
+        Ver tu regalo 🎁
+      </button>
+    </section>
+
+    <!-- ============================================================
+         SOBRE (pantalla 2)
+         ============================================================ -->
+    <section class="gift-scene" id="gift-scene" hidden>
+      <p class="hint" id="hint">Toca el sello para abrir el sobre</p>
+
+      <div class="envelope" id="envelope">
+        <div class="tickets" id="tickets">
+          <!-- 🖼️ Reemplaza estas imágenes por las fotos reales de tus boletos -->
+          <img src="assets/boleto-1.jpg" alt="Boleto 1" class="ticket ticket-1">
+          <img src="assets/boleto-2.jpg" alt="Boleto 2" class="ticket ticket-2">
+        </div>
+
+        <div class="envelope-body"></div>
+        <div class="envelope-pocket"></div>
+
+        <div class="envelope-flap" id="envelope-flap">
+          <button class="wax-seal" id="wax-seal" type="button" aria-label="Abrir el sobre">
+            <span>💌</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="btn-again" id="btn-again" type="button" hidden>Ver de nuevo</button>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

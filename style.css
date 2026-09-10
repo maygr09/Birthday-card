@@ -1,0 +1,241 @@
+:root {
+  --morado-osc: #2c1e4a;
+  --morado-med: #56305f;
+  --crema: #fff8ec;
+  --crema-osc: #ffe9c7;
+  --dorado: #ffb347;
+  --texto: #2c1e4a;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at 50% 0%, var(--morado-med), var(--morado-osc));
+  color: var(--texto);
+}
+
+.wrap {
+  width: 100%;
+  max-width: 480px;
+}
+
+/* ---------- Tarjeta ---------- */
+
+.card {
+  background: var(--crema);
+  border-radius: 24px;
+  padding: 40px 28px 32px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.confetti {
+  font-size: 28px;
+  letter-spacing: 6px;
+  margin-bottom: 4px;
+}
+
+.card h1 {
+  margin: 0;
+  font-size: clamp(24px, 6vw, 32px);
+}
+
+.card .msg {
+  margin: 0 0 16px;
+  color: #5b4d70;
+  line-height: 1.5;
+}
+
+.btn-ver-regalo,
+.btn-again {
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--morado-osc);
+  background: var(--dorado);
+  padding: 14px 28px;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(255, 179, 71, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-ver-regalo:hover,
+.btn-again:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(255, 179, 71, 0.55);
+}
+
+.btn-ver-regalo:active,
+.btn-again:active {
+  transform: translateY(0);
+}
+
+.btn-again {
+  margin-top: 28px;
+  background: transparent;
+  color: var(--crema);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+}
+
+/* ---------- Escena del sobre ---------- */
+
+.gift-scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hint {
+  color: var(--crema);
+  opacity: 0.85;
+  margin-bottom: 48px;
+  font-size: 15px;
+  position: relative;
+  z-index: 5;
+}
+
+.envelope {
+  position: relative;
+  width: min(320px, 82vw);
+  aspect-ratio: 320 / 210;
+  perspective: 1000px;
+}
+
+/* boletos: salen de dentro del sobre */
+.tickets {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.ticket {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  width: 78%;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transform: translate(-50%, 10px) rotate(0deg) scale(0.9);
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
+}
+
+.ticket-1 { transform: translate(-70%, 10px) rotate(0deg) scale(0.9); }
+.ticket-2 { transform: translate(-30%, 10px) rotate(0deg) scale(0.9); z-index: 1; }
+
+.tickets.out .ticket-1 {
+  opacity: 1;
+  transform: translate(-88%, -128%) rotate(-10deg) scale(1);
+  transition-delay: 0.15s;
+}
+
+.tickets.out .ticket-2 {
+  opacity: 1;
+  transform: translate(-12%, -145%) rotate(7deg) scale(1);
+  transition-delay: 0.3s;
+  z-index: 2;
+}
+
+/* cuerpo base del sobre (siempre visible detrás) */
+.envelope-body {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, var(--crema), var(--crema-osc));
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* bolsillo frontal (forma de "V" clásica de sobre) */
+.envelope-pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(180deg, #fffaf1, #ffedd0);
+  clip-path: polygon(0% 100%, 100% 100%, 100% 32%, 50% 58%, 0% 32%);
+  border-radius: 0 0 12px 12px;
+}
+
+.envelope-pocket::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0% 100%, 100% 100%, 100% 32%, 50% 58%, 0% 32%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.06), transparent 40%);
+}
+
+/* solapa superior */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 62%;
+  z-index: 4;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.4, 0.1, 0.2, 1), z-index 0s linear 0.9s;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  background: linear-gradient(160deg, #f3e2c0, #e8c98d);
+  box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.08);
+}
+
+.envelope-flap.open {
+  transform: rotateX(-140deg);
+  z-index: -1;
+}
+
+.wax-seal {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: radial-gradient(circle at 35% 30%, #ff8a6b, #c0392b 70%);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(16px, 4vw, 22px);
+  transition: transform 0.15s ease, opacity 0.3s ease;
+}
+
+.wax-seal:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.wax-seal:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticket,
+  .envelope-flap {
+    transition: none !important;
+  }
+}
