@@ -224,53 +224,6 @@ button { font-family: inherit; }
   perspective: 1000px;
 }
 
-/* boletos: salen de dentro del sobre */
-.tickets {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-.ticket {
-  position: absolute;
-  bottom: 8%;
-  left: 50%;
-  width: 46%;
-  border-radius: 10px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-  opacity: 0;
-  transform: translate(-50%, 14px) rotate(0deg) scale(0.9);
-  transition: left 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
-              transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
-              opacity 0.5s ease;
-}
-
-.ticket-1 { z-index: 1; }
-.ticket-2 { z-index: 2; }
-.ticket-3 { z-index: 1; }
-
-.tickets.out .ticket-1 {
-  left: 32%;
-  opacity: 1;
-  transform: translate(-50%, -22%) rotate(-13deg) scale(1);
-  transition-delay: 0.15s;
-}
-
-.tickets.out .ticket-2 {
-  left: 50%;
-  opacity: 1;
-  transform: translate(-50%, -26%) rotate(2deg) scale(1);
-  transition-delay: 0.32s;
-  z-index: 3;
-}
-
-.tickets.out .ticket-3 {
-  left: 68%;
-  opacity: 1;
-  transform: translate(-50%, -22%) rotate(13deg) scale(1);
-  transition-delay: 0.48s;
-}
-
 /* cuerpo base del sobre (siempre visible detrás) */
 .envelope-body {
   position: absolute;
@@ -351,7 +304,7 @@ button { font-family: inherit; }
 }
 
 .btn-again {
-  margin-top: 32px;
+  margin-top: 8px;
   border: 2px solid rgba(255, 255, 255, 0.5);
   background: transparent;
   color: var(--crema);
@@ -365,11 +318,65 @@ button { font-family: inherit; }
 
 .btn-again:hover { transform: translateY(-2px); }
 
+/* ============================================================
+   4) BOLETOS COMPLETOS
+   ============================================================ */
+
+.tickets-display {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.tickets-display.show {
+  opacity: 1;
+  transform: none;
+}
+
+.tickets-title {
+  color: var(--crema);
+  font-size: 18px;
+  margin: 0 0 22px;
+}
+
+.tickets-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.ticket-full {
+  width: min(190px, 30vw);
+  border-radius: 14px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.tickets-display.show .ticket-full {
+  opacity: 1;
+  transform: none;
+}
+
+.tickets-display.show .ticket-full:nth-child(1) { transition-delay: 0.05s; }
+.tickets-display.show .ticket-full:nth-child(2) { transition-delay: 0.18s; }
+.tickets-display.show .ticket-full:nth-child(3) { transition-delay: 0.31s; }
+
 @media (prefers-reduced-motion: reduce) {
-  .ticket,
   .envelope-flap,
   .cover,
-  .spread {
+  .spread,
+  .tickets-display,
+  .ticket-full {
     transition: none !important;
   }
 }

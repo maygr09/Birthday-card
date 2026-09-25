@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const giftScene = document.getElementById("gift-scene");
   const envelopeFlap = document.getElementById("envelope-flap");
   const waxSeal = document.getElementById("wax-seal");
-  const tickets = document.getElementById("tickets");
+
+  const ticketsDisplay = document.getElementById("tickets-display");
   const btnAgain = document.getElementById("btn-again");
 
   // Paso 1: tocar la tarjeta cerrada → se "voltea" la portada y aparece
@@ -31,30 +32,34 @@ document.addEventListener("DOMContentLoaded", () => {
     giftScene.hidden = false;
   });
 
-  // Paso 3: tocar el sello → el sobre se abre y salen los boletos
+  // Paso 3: tocar el sello → el sobre se abre y, un momento después,
+  // se muestran los boletos completos debajo (en vez de salir del
+  // sobre, ya que son muy alargados para caber dentro de la escena)
   waxSeal.addEventListener("click", () => {
     waxSeal.disabled = true;
     envelopeFlap.classList.add("open");
     giftScene.classList.add("opened");
 
     setTimeout(() => {
-      tickets.classList.add("out");
-      btnAgain.hidden = false;
-    }, 250);
+      giftScene.hidden = true;
+      ticketsDisplay.hidden = false;
+      requestAnimationFrame(() => ticketsDisplay.classList.add("show"));
+    }, 700);
   });
 
   // Botón para reiniciar toda la experiencia desde la tarjeta cerrada
   btnAgain.addEventListener("click", () => {
-    tickets.classList.remove("out");
+    ticketsDisplay.classList.remove("show");
+    ticketsDisplay.hidden = true;
+
     envelopeFlap.classList.remove("open");
     waxSeal.disabled = false;
-    btnAgain.hidden = true;
     giftScene.classList.remove("opened");
+    giftScene.hidden = true;
 
     spread.classList.remove("show");
     cover.classList.remove("flip");
 
-    giftScene.hidden = true;
     cardOpen.hidden = true;
     cardClosed.hidden = false;
   });

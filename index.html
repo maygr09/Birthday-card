@@ -44,12 +44,6 @@
       <p class="hint" id="hint">Toca el sello para abrir el sobre</p>
 
       <div class="envelope" id="envelope">
-        <div class="tickets" id="tickets">
-          <img src="assets/boleto-1.jpg" alt="Boleto 1" class="ticket ticket-1">
-          <img src="assets/boleto-2.jpg" alt="Boleto 2" class="ticket ticket-2">
-          <img src="assets/boleto-3.jpg" alt="Boleto 3" class="ticket ticket-3">
-        </div>
-
         <div class="envelope-body"></div>
         <div class="envelope-pocket"></div>
 
@@ -58,8 +52,19 @@
           <span>💌</span>
         </button>
       </div>
+    </section>
 
-      <button class="btn-again" id="btn-again" type="button" hidden>Ver de nuevo</button>
+    <!-- ============================================================
+         4) BOLETOS COMPLETOS (se muestran ya fuera del sobre)
+         ============================================================ -->
+    <section class="tickets-display" id="tickets-display" hidden>
+      <p class="tickets-title">🎟️ Tus boletos</p>
+      <div class="tickets-row" id="tickets-row">
+        <img src="assets/boleto-1.jpg" alt="Boleto 1" class="ticket-full">
+        <img src="assets/boleto-2.jpg" alt="Boleto 2" class="ticket-full">
+        <img src="assets/boleto-3.jpg" alt="Boleto 3" class="ticket-full">
+      </div>
+      <button class="btn-again" id="btn-again" type="button">Ver de nuevo</button>
     </section>
 
   </main>
